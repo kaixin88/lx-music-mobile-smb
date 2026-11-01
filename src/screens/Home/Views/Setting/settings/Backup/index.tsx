@@ -3,6 +3,7 @@ import { memo } from 'react'
 
 import Section from '../../components/Section'
 import Part from './Part'
+import Smb from './Smb'
 // import MaxCache from './MaxCache'
 
 export default memo(() => {
@@ -11,6 +12,7 @@ export default memo(() => {
   return (
     <Section title={t('setting_backup')}>
       <Part />
+      <Smb />
       {/* <MaxCache /> */}
     </Section>
   )

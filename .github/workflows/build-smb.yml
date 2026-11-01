@@ -1,0 +1,50 @@
+name: Build SMB APK
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK (SMB)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v4
+
+      - name: Setup Env
+        uses: ./.github/actions/setup
+
+      - name: Build Packages
+        env:
+          DISABLE_SVG: 1
+        shell: bash
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Get package version
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+
+      - name: Show outputs
+        run: |
+          ls -lh android/app/build/outputs/apk/release/
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: lx-music-mobile-smb-v${{ env.PACKAGE_VERSION }}
+          path: android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+
+      - name: Upload Unpacked JS Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: lx-music-mobile-smb-js
+          path: android/app/build/generated/assets/react/release/index.android.bundle
+          if-no-files-found: warn

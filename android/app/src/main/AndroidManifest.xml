@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- SMB 备份前台服务（Android 14+ 需声明类型） -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
       android:name=".MainApplication"
@@ -90,6 +94,12 @@
           <data android:pathSuffix=".lxmc" tools:targetApi="s" />
         </intent-filter>
       </activity>
+
+      <!-- SMB 备份前台服务 -->
+      <service
+        android:name=".smb.SmbBackupService"
+        android:exported="false"
+        android:foregroundServiceType="dataSync" />
 
       <!-- Define a FileProvider for API24+ -->
       <!-- note this is the authority name used by other modules like rn-fetch-blob, easy to have conflicts -->

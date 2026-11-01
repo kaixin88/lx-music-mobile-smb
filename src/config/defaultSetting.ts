@@ -72,6 +72,17 @@ const defaultSetting: LX.AppSetting = {
 
   'sync.enable': false,
 
+  'smb.host': '',
+  'smb.port': 445,
+  'smb.share': '',
+  'smb.username': '',
+  'smb.password': '',
+  'smb.domain': '',
+  'smb.remotePath': 'LXMusic',
+  'smb.resumeSetting': false,
+  'smb.resumeUserApi': true,
+  'smb.lastBackupAt': 0,
+
   // 'theme.id': 'blue_plus',
   'theme.id': 'green',
   'theme.lightId': 'green',

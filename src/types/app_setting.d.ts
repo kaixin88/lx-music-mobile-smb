@@ -355,6 +355,56 @@ declare global {
        * 是否启用同步
        */
       'sync.enable': boolean
+
+      /**
+       * SMB 备份：服务器地址
+       */
+      'smb.host': string
+
+      /**
+       * SMB 备份：端口
+       */
+      'smb.port': number
+
+      /**
+       * SMB 备份：共享名
+       */
+      'smb.share': string
+
+      /**
+       * SMB 备份：用户名
+       */
+      'smb.username': string
+
+      /**
+       * SMB 备份：密码
+       */
+      'smb.password': string
+
+      /**
+       * SMB 备份：域
+       */
+      'smb.domain': string
+
+      /**
+       * SMB 备份：远端备份目录
+       */
+      'smb.remotePath': string
+
+      /**
+       * SMB 恢复：是否一并恢复设置
+       */
+      'smb.resumeSetting': boolean
+
+      /**
+       * SMB 恢复：是否一并恢复自定义源
+       */
+      'smb.resumeUserApi': boolean
+
+      /**
+       * SMB 备份：最近一次备份时间戳
+       */
+      'smb.lastBackupAt': number
     }
   }
 }

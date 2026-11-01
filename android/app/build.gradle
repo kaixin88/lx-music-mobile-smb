@@ -134,13 +134,21 @@ android {
                 keyPassword MYAPP_UPLOAD_KEY_PASSWORD
             } else {
                 def keystorePropertiesFile = rootProject.file("keystore.properties")
-                def keystoreProperties = new Properties()
-                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                if (keystorePropertiesFile.exists()) {
+                    def keystoreProperties = new Properties()
+                    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-                storeFile file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
+                    storeFile file(keystoreProperties['storeFile'])
+                    storePassword keystoreProperties['storePassword']
+                    keyAlias keystoreProperties['keyAlias']
+                    keyPassword keystoreProperties['keyPassword']
+                } else {
+                    // 没有配置正式签名时回退到 debug 签名，保证 fork 也能直接构建出可安装的包
+                    storeFile file('debug.keystore')
+                    storePassword 'android'
+                    keyAlias 'androiddebugkey'
+                    keyPassword 'android'
+                }
             }
         }
         debug {
@@ -194,6 +202,11 @@ dependencies {
     // implementation "androidx.javascriptengine:javascriptengine:1.0.0-alpha07"
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation 'wang.harlon.quickjs:wrapper-android:2.4.0'
+
+    // SMB 备份支持（SMB2 / SMB3）
+    implementation 'com.hierynomus:smbj:0.13.0'
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'org.slf4j:slf4j-nop:1.7.36'
 
   if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
