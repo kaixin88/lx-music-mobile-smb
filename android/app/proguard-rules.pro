@@ -24,3 +24,16 @@
   **[] $VALUES;
   public *;
 }
+
+# SMB 依赖（smbj / bouncycastle / slf4j）
+-keep class com.hierynomus.** { *; }
+-keep class net.engio.mbassy.** { *; }
+-keep class org.bouncycastle.** { *; }
+-keep class org.slf4j.** { *; }
+-dontwarn com.hierynomus.**
+-dontwarn net.engio.mbassy.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.slf4j.**
+-dontwarn javax.el.**
+-dontwarn javax.naming.**
+-dontwarn javax.annotation.**
